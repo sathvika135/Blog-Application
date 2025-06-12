@@ -14,14 +14,12 @@ import { setAuthToken } from './services/api';
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
 
-  // ✅ When app mounts, set auth token in Axios headers
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     setAuthToken(storedToken);
     setToken(storedToken);
   }, []);
 
-  // ✅ Optional: Update token when it changes in localStorage (e.g., after login/logout)
   useEffect(() => {
     const handleStorageChange = () => {
       const newToken = localStorage.getItem('token');

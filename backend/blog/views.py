@@ -69,7 +69,7 @@ class BlogListView(APIView):
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = [AllowAny]
-    serializer_class = RegisterSerializer  # <-- Use this one
+    serializer_class = RegisterSerializer  
 
 class BlogList(generics.ListAPIView):
     queryset = Blog.objects.all().order_by('-created_at')
@@ -81,10 +81,10 @@ class BlogDetail(generics.RetrieveAPIView):
 
 class BlogCreate(generics.CreateAPIView):
     serializer_class = BlogSerializer
-    permission_classes = [permissions.IsAuthenticated]  # ✅ Only logged-in users
+    permission_classes = [permissions.IsAuthenticated]  
 
     def perform_create(self, serializer):
-        #print("User making request:", self.request.user)  # ✅ Debug
+        #print("User making request:", self.request.user)  
         serializer.save(author=self.request.user)
 
 class BlogEdit(generics.RetrieveUpdateDestroyAPIView):

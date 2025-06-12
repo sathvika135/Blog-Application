@@ -19,10 +19,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from blog.views import RegisterView
-from django.http import HttpResponse  # ← ADD THIS
+from django.http import HttpResponse  
 from blog.views import BlogListCreateAPIView
 
-def home(request):                    # ← ADD THIS
+def home(request):                    
     return HttpResponse("Welcome to the Blog API!")
 
 urlpatterns = [
@@ -30,11 +30,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('blog.urls')),
     path('api/blogs/', BlogListCreateAPIView.as_view(), name='blog-list-create'),
-    # Authentication endpoints
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/register/', RegisterView.as_view(), name='register'),  # ✅ only once
-
-    # Blog app endpoints
+    path('api/register/', RegisterView.as_view(), name='register'),  
+    
     
 ]

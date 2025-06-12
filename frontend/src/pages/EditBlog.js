@@ -11,7 +11,7 @@ export default function EditBlog() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      setAuthToken(token); // ✅ Critical
+      setAuthToken(token); 
     }
 
     api.get(`/blogs/${id}/`)

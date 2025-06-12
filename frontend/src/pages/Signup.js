@@ -18,7 +18,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const res = await api.post('/api/register/', form); // ✅ FIXED
+    const res = await api.post('/api/register/', form); 
     const newUser = res.data;
     localStorage.setItem('user', JSON.stringify({ id: newUser.id, email: form.email }));
     alert('Registration successful!');

@@ -28,10 +28,10 @@ const BlogList = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      setAuthToken(token); // ✅ Set token
+      setAuthToken(token); 
     }
 
-    fetchBlogList(); // ✅ Correct function
+    fetchBlogList(); 
   }, []);
 
   const handlePageChange = (url) => {

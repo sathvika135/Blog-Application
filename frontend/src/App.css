@@ -1,11 +1,9 @@
-/* Set yellow background for the whole page */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f3e5f5; /* <-- changed here */
+  background-color: #f3e5f5; 
 }
 
-/* Centered form containers */
 .login-container,
 .signup-container {
   display: flex;
@@ -15,7 +13,6 @@ body {
   height: 100vh;
 }
 
-/* Styled form boxes */
 .login-form,
 .signup-form {
   background-color: white;
@@ -28,7 +25,6 @@ body {
   width: 300px;
 }
 
-/* Inputs and buttons */
 .login-form input,
 .signup-form input,
 .login-form button,
@@ -80,7 +76,6 @@ body {
   font-size: calc(10px + 2vmin);
   color: white;
 }
-/* App.css */
 
 
 .container {

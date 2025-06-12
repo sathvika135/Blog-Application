@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'blog',
     
 ]
-ROOT_URLCONF = 'backend.urls'   # 👈 Replace 'backend' with your actual project folder name
+ROOT_URLCONF = 'backend.urls'   
 
 
 MIDDLEWARE = [
