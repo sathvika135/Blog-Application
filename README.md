@@ -38,9 +38,7 @@ cd Blog-Application
 
 
 2. Set Up the Backend
-bash
-Copy
-Edit
+
 cd backend
 python -m venv venv
 venv\Scripts\activate  # On Windows
@@ -54,9 +52,6 @@ Your backend will run at: http://127.0.0.1:8000/
 3. Set Up the Frontend
 Open a new terminal tab or window:
 
-bash
-Copy
-Edit
 cd frontend
 npm install
 npm start
