@@ -1,27 +1,24 @@
 // src/pages/EditBlog.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import api, { setAuthToken } from '../services/api';
+import API from '../services/api';
 
-export default function EditBlog() {
+const EditBlog = () => {
   const { id } = useParams();
   const [form, setForm] = useState({ title: '', content: '' });
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setAuthToken(token); 
-    }
-
-    api.get(`/blogs/${id}/`)
-      .then((res) => setForm(res.data))
-      .catch((err) => {
-        console.error('Failed to fetch blog', err);
-        if (err.response?.status === 401) {
-          alert('Unauthorized – Please login again.');
-        }
-      });
+    const fetchBlog = async () => {
+      try {
+        const res = await API.get(`/api/blogs/${id}/`); // ✅ fixed URL
+        setForm({ title: res.data.title, content: res.data.content });
+      } catch (error) {
+        console.error('Failed to fetch blog', error);
+        alert('Blog not found');
+      }
+    };
+    fetchBlog();
   }, [id]);
 
   const handleChange = (e) => {
@@ -31,30 +28,34 @@ export default function EditBlog() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.put(`/blogs/${id}/`, form);
+      await API.put(`/api/blogs/${id}/`, form); // ✅ fixed URL
+      alert('Blog updated!');
       navigate(`/blogs/${id}`);
-    } catch (err) {
-      console.error('Update failed:', err);
-      alert('Update failed. You might not be authorized.');
+    } catch (error) {
+      console.error('Update error:', error.response?.data || error.message);
+      alert('Failed to update blog');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <h2>Edit Blog</h2>
-      <input
-        name="title"
-        value={form.title}
-        onChange={handleChange}
-        placeholder="Title"
-      />
-      <textarea
-        name="content"
-        value={form.content}
-        onChange={handleChange}
-        placeholder="Content"
-      ></textarea>
-      <button type="submit">Update</button>
-    </form>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="title"
+          value={form.title}
+          onChange={handleChange}
+        />
+        <textarea
+          name="content"
+          value={form.content}
+          onChange={handleChange}
+        />
+        <button type="submit">Update Blog</button>
+      </form>
+    </div>
   );
-}
+};
+
+export default EditBlog;

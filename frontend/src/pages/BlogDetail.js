@@ -11,10 +11,11 @@ const BlogDetail = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await API.get(`/blogs/${id}/`);
+        const res = await API.get(`/api/blogs/${id}/`); // ✅ fixed URL
         setBlog(res.data);
       } catch (error) {
         console.error('Error fetching blog:', error);
+        alert('Failed to load blog');
       }
     };
     fetchBlog();
@@ -25,7 +26,7 @@ const BlogDetail = () => {
     if (!confirmDelete) return;
 
     try {
-      await API.delete(`/blogs/${id}/`);
+      await API.delete(`/api/blogs/${id}/`); // ✅ fixed URL
       alert("Blog deleted");
       navigate('/');
     } catch (error) {
@@ -40,9 +41,11 @@ const BlogDetail = () => {
     <div>
       <h2>{blog.title}</h2>
       <p>{blog.content}</p>
-      <p><small>
-    Posted by {blog.author?.username} on {new Date(blog.created_at).toLocaleDateString()}
-  </small></p>
+      <p>
+        <small>
+          Posted by {blog.author?.username} on {new Date(blog.created_at).toLocaleDateString()}
+        </small>
+      </p>
 
       {blog.author && currentUserId === blog.author.id && (
         <div>
@@ -50,7 +53,6 @@ const BlogDetail = () => {
           <button onClick={() => navigate(`/blogs/${id}/edit`)}>Edit</button>
         </div>
       )}
-      
     </div>
   );
 };

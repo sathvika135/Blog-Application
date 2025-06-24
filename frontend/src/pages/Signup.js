@@ -24,9 +24,15 @@ const Signup = () => {
     alert('Registration successful!');
     navigate('/login');
   } catch (err) {
-    console.error('Registration error:', err.response || err.message);
-    alert('Registration failed');
+  if (err.response) {
+    console.error('Response error:', err.response.data);
+    alert('Registration failed: ' + JSON.stringify(err.response.data));
+  } else {
+    console.error('Other error:', err.message);
+    alert('Registration failed. Check console for details.');
   }
+}
+
 };
 
 

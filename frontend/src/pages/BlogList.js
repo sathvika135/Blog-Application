@@ -9,13 +9,14 @@ const BlogList = () => {
   const [previous, setPrevious] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchBlogList = async (url = '/blogs/') => {
+  // ✅ Corrected endpoint: starts with `/api/blogs/`
+  const fetchBlogList = async (url = '/api/blogs/') => {
     setLoading(true);
     try {
       const res = await API.get(url);
-      setBlogs(res.data.results);
-      setNext(res.data.next);
-      setPrevious(res.data.previous);
+      setBlogs(res.data.results || res.data); // fallback if not paginated
+      setNext(res.data.next || null);
+      setPrevious(res.data.previous || null);
     } catch (error) {
       console.error('Failed to fetch blogs', error);
       if (error.response?.status === 401) {
@@ -30,12 +31,11 @@ const BlogList = () => {
     if (token) {
       setAuthToken(token); 
     }
-
     fetchBlogList(); 
   }, []);
 
   const handlePageChange = (url) => {
-    const apiUrl = url.replace('http://127.0.0.1:8000/api', '');
+    const apiUrl = url.replace('http://127.0.0.1:8000', ''); // ✅ ensure relative path
     fetchBlogList(apiUrl);
   };
 
@@ -52,8 +52,6 @@ const BlogList = () => {
           </li>
         ))}
       </ul>
-      
-
       <div>
         {previous && <button onClick={() => handlePageChange(previous)}>Previous</button>}
         {next && <button onClick={() => handlePageChange(next)}>Next</button>}
